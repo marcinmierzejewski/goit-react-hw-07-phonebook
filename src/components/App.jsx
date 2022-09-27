@@ -13,7 +13,7 @@ export const App = () => {
         <PhoneBook />
       </Section>
       <Section title="Contacts">
-        <SearchFilter />
+        {/* <SearchFilter /> */}
         <ContactsList />
       </Section>
     </div>

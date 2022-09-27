@@ -1,19 +1,25 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
 import styles from './PhoneBook.module.css';
-import { addContact } from 'redux/contactsSlice';
+// import { addContact } from 'redux/contactsSlice';
 import { nanoid } from 'nanoid';
-import { saveToLocalStorage } from 'services/localStorageServices';
+// import { saveToLocalStorage } from 'services/localStorageServices';
+import { useAddContactMutation, useGetContactsQuery } from 'services/phonebookApi';
 
 export const PhoneBook = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
+  // const dispatch = useDispatch();
+  // const contacts = useSelector(state => state.contacts.items);
 
-  useEffect(() => {
-    saveToLocalStorage(contacts);
-  }, [contacts]);
+  // useEffect(() => {
+  //   saveToLocalStorage(contacts);
+  // }, [contacts]);
 
-  const valueSubmit = e => {
+  const {
+    data: contacts = [],
+  } = useGetContactsQuery();
+  const [addContact] = useAddContactMutation();
+
+  const valueSubmit = async e => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
@@ -25,8 +31,18 @@ export const PhoneBook = () => {
     if (contacts.find(cont => cont.name === name)) {
       alert(`${name} is already in contacts`);
     } else {
-      dispatch(addContact({ name, number, id: nanoid() }));
-      form.reset();
+
+        try {
+          await addContact({
+            id: nanoid(),
+            name,
+            number,
+          });
+        } catch (error) {
+          alert(`Failed! Save error`);
+        }
+        
+        form.reset();
     }
   };
 

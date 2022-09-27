@@ -1,9 +1,18 @@
 import { ContactItem } from 'components/contactItem/ContactItem';
 import { useSelector } from 'react-redux';
+import { useGetContactsQuery } from 'services/phonebookApi';
 import styles from './ContactsList.module.css';
 
 export const ContactsList = () => {
-  const contacts = useSelector(state => state.contacts.items);
+  const {
+    data: contacts = [],
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetContactsQuery();
+  
+  // const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter);
   const viewContacts = contacts
     .filter(cont => cont.name.toLowerCase().includes(filter))
