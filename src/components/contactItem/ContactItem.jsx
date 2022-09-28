@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-
-import { deleteContact } from 'redux/contactsSlice';
+// import { useDispatch } from 'react-redux';
+import { useDeleteContactMutation } from 'services/phonebookApi';
+// import { deleteContact } from 'redux/contactsSlice';
 import styles from './ContactItem.module.css'
 
 export const ContactItem = ({ id, name, phone }) => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const [deleteContact] = useDeleteContactMutation();
   const { contactItem, contactName, contactWrapper, btn } = styles
+
   return (
     <li className={contactItem}>
       <div className={contactWrapper}>
@@ -17,7 +19,7 @@ export const ContactItem = ({ id, name, phone }) => {
         </div>
         
         <button type="button" className={btn} onClick={() => {
-            dispatch(deleteContact(id))}}>
+            deleteContact(id)}}>
             Delete
           </button>
       </div>

@@ -1,13 +1,14 @@
 import { ContactItem } from 'components/contactItem/ContactItem';
 import { useSelector } from 'react-redux';
 import { useGetContactsQuery } from 'services/phonebookApi';
+import { Loader } from 'components/Loader/Loader';
 import styles from './ContactsList.module.css';
 
 export const ContactsList = () => {
   const {
     data: contacts = [],
-    // isLoading,
-    // isSuccess,
+    isLoading,
+    isSuccess,
     // isError,
     // error,
   } = useGetContactsQuery();
@@ -22,7 +23,8 @@ export const ContactsList = () => {
 
   return (
     <div>
-      {contacts?.length > 0 ? (
+      {isLoading && <Loader />}
+      {isSuccess && (contacts?.length > 0 ? (
         <ul className={contactsList}>
           {viewContacts.map(({ id, name, phone }) => (
             <ContactItem key={id} id={id} name={name} phone={phone} />
@@ -30,7 +32,7 @@ export const ContactsList = () => {
         </ul>
       ) : (
         <p className={contactsList}> No contacts available </p>
-      )}
+      ))}
     </div>
   );
 };
