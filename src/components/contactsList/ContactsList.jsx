@@ -6,10 +6,10 @@ import styles from './ContactsList.module.css';
 export const ContactsList = () => {
   const {
     data: contacts = [],
-    isLoading,
-    isSuccess,
-    isError,
-    error,
+    // isLoading,
+    // isSuccess,
+    // isError,
+    // error,
   } = useGetContactsQuery();
   
   // const contacts = useSelector(state => state.contacts.items);
@@ -24,8 +24,8 @@ export const ContactsList = () => {
     <div>
       {contacts?.length > 0 ? (
         <ul className={contactsList}>
-          {viewContacts.map(({ id, name, number }) => (
-            <ContactItem key={id} id={id} name={name} number={number} />
+          {viewContacts.map(({ id, name, phone }) => (
+            <ContactItem key={id} id={id} name={name} phone={phone} />
           ))}
         </ul>
       ) : (

@@ -1,6 +1,6 @@
 import { PhoneBook } from './phoneBook/PhoneBook';
 import { ContactsList } from './contactsList/ContactsList';
-import { SearchFilter } from './searchFilter/SearchFilter';
+// import { SearchFilter } from './searchFilter/SearchFilter';
 import { Section } from './section/Section';
 import styles from './App.module.css';
 

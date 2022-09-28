@@ -23,9 +23,9 @@ export const PhoneBook = () => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
-    const number = form.number.value;
+    const phone = form.phone.value;
 
-    console.log(name, number);
+    console.log(name, phone);
     console.log(contacts);
 
     if (contacts.find(cont => cont.name === name)) {
@@ -36,12 +36,12 @@ export const PhoneBook = () => {
           await addContact({
             id: nanoid(),
             name,
-            number,
+            phone,
           });
         } catch (error) {
           alert(`Failed! Save error`);
         }
-        
+
         form.reset();
     }
   };

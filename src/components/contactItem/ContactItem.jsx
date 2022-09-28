@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/contactsSlice';
 import styles from './ContactItem.module.css'
 
-export const ContactItem = ({ id, name, number }) => {
+export const ContactItem = ({ id, name, phone }) => {
   const dispatch = useDispatch();
   const { contactItem, contactName, contactWrapper, btn } = styles
   return (
@@ -12,8 +12,8 @@ export const ContactItem = ({ id, name, number }) => {
       <div className={contactWrapper}>
       
         <div className={contactWrapper}>
-          <span className={contactName}>{name}: {number}</span>{' '}
-            <a href={`tel:${number}`}><button className={btn}>Call</button></a>
+          <span className={contactName}>{name}: {phone}</span>{' '}
+            <a href={`tel:${phone}`}><button className={btn}>Call</button></a>
         </div>
         
         <button type="button" className={btn} onClick={() => {
@@ -29,5 +29,5 @@ export const ContactItem = ({ id, name, number }) => {
 ContactItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phone: PropTypes.string.isRequired,
 };
