@@ -1,6 +1,6 @@
 import { ContactItem } from 'components/contactItem/ContactItem';
 import { useSelector } from 'react-redux';
-import { useGetContactsQuery } from 'services/phonebookApi';
+import { useGetContactsQuery } from 'services/contactsApi';
 import { Loader } from 'components/Loader/Loader';
 import styles from './ContactsList.module.css';
 
@@ -9,11 +9,10 @@ export const ContactsList = () => {
     data: contacts = [],
     isLoading,
     isSuccess,
-    // isError,
-    // error,
+    isError,
+    error,
   } = useGetContactsQuery();
-  
-  // const contacts = useSelector(state => state.contacts.items);
+
   const filter = useSelector(state => state.filter);
   const viewContacts = contacts
     .filter(cont => cont.name.toLowerCase().includes(filter))
@@ -24,15 +23,17 @@ export const ContactsList = () => {
   return (
     <div>
       {isLoading && <Loader />}
-      {isSuccess && (contacts?.length > 0 ? (
-        <ul className={contactsList}>
-          {viewContacts.map(({ id, name, phone }) => (
-            <ContactItem key={id} id={id} name={name} phone={phone} />
-          ))}
-        </ul>
-      ) : (
-        <p className={contactsList}> No contacts available </p>
-      ))}
+      {isSuccess &&
+        (contacts?.length > 0 ? (
+          <ul className={contactsList}>
+            {viewContacts.map(({ id, name, phone }) => (
+              <ContactItem key={id} id={id} name={name} phone={phone} />
+            ))}
+          </ul>
+        ) : (
+          <p className={contactsList}> No contacts available </p>
+        ))}
+      {isError && <p className={contactsList}> Error: {error} </p>}
     </div>
   );
 };
